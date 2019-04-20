@@ -1,4 +1,6 @@
 .vscode/
-bazel-*
 node_modules/
 /.idea
+
+/bazel-out
+/dist
