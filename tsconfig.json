@@ -1,0 +1,13 @@
+{
+    "compilerOptions": {
+      "experimentalDecorators": true,
+      "strict": true,
+      "noImplicitAny": false,
+      "rootDirs": [
+        "./"
+      ]
+    },
+    "bazelOptions": {
+      "workspaceName": "wbd"
+    }
+}
