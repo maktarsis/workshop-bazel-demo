@@ -6,8 +6,5 @@
       "rootDirs": [
         "./"
       ]
-    },
-    "bazelOptions": {
-      "workspaceName": "wbd"
     }
 }
