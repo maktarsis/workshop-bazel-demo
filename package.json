@@ -4,16 +4,18 @@
   "description": "A typescript code to present some possibilities of Bazel",
   "dependencies": {},
   "devDependencies": {
-    "@bazel/bazel": "^0.19.1",
-    "@bazel/typescript": "0.21.0",
+    "@bazel/bazel": "^0.24.1",
+    "@bazel/ibazel": "^0.10.1",
+    "@bazel/typescript": "0.27.10",
     "typescript": "^3.1.6"
   },
   "scripts": {
-    "build": "./node_modules/.bin/bazel build -s :bundle",
-    "graph:in": "./node_modules/.bin/bazel query ... --output graph > graph.in",
-    "graph:in:system": "./node_modules/.bin/bazel query 'deps(:system)' --output graph > graph.in",
-    "graph:png": "./node_modules/.bin/bazel query ... --output graph | dot -Tpng > graph.png",
-    "graph:dot": "dot -Tpng < graph.in > graph.png",
+    "build": "bazel build -s :devserver",
+    "serve": "ibazel run :devserver",
+    "graph:in": "bazel query ... --output graph > graph.in",
+    "graph:in:main": "bazel query 'deps(:main)' --output graph > graph.in",
+    "graph:png": "bazel query ... --output graph | dot -T png > graph.png",
+    "graph:dot": "dot -T png < graph.in > graph.png",
     "graph:all": "yarn run graph:in && yarn run graph:dot"
   },
   "author": "Max Tarsis <maksym.tarsis@gmail.com>",

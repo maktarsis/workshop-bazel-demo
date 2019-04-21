@@ -3,4 +3,4 @@ node_modules/
 /.idea
 
 /bazel-out
-/dist
+/.bazel
