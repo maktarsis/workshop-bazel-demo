@@ -1,7 +1,5 @@
-# TypeScriptInfo transports
 TypeScriptInfo = provider(fields = ["dts", "js"])
 
-# The tools required to build TypeScript code.
 _TOOLS = {
     "_node": attr.label(
         default = Label("@nodejs//:node"),
@@ -21,7 +19,6 @@ _TOOLS = {
 def _outfile(ctx, s, ext):
     return ctx.actions.declare_file(s.short_path.replace(".ts", ext))
 
-# The implementation of ts_library. A minimal example that for a TypeScript build rule that handles input, output, and transitive dependencies.
 def _ts_library_impl(ctx):
     # Declare the output files created by this rule from the srcs.
     js = [_outfile(ctx, s, ".js")
@@ -62,9 +59,6 @@ def _ts_library_impl(ctx):
                 binDir=ctx.genfiles_dir.path,
                 files=[to_root + f.path for f in inputs]))
 
-    # Declare the action that runs TypeScript compiler.
-    # This does not immediately execute - it only tells bazel that if the
-    # inputs changed, it has to run this action to produce the outputs.
     ctx.actions.run(
         executable = ctx.executable._node,
         tools = ctx.files._tsc,
@@ -78,8 +72,6 @@ def _ts_library_impl(ctx):
         ],
     )
 
-    # Return TypeScript info for rules that depend on this one.
-    # DefaultInfo tells bazel what to build by default (the local files).
     return [
         DefaultInfo(files = depset(js + dts)),
         TypeScriptInfo(
