@@ -1,3 +1,4 @@
+# dirty implementation as example of ts_library created by @mprobst
 TypeScriptInfo = provider(fields = ["dts", "js"])
 
 _TOOLS = {
@@ -20,13 +21,11 @@ def _outfile(ctx, s, ext):
     return ctx.actions.declare_file(s.short_path.replace(".ts", ext))
 
 def _ts_library_impl(ctx):
-    # Declare the output files created by this rule from the srcs.
     js = [_outfile(ctx, s, ".js")
             for s in ctx.files.srcs]
     dts = [_outfile(ctx, s, ".d.ts")
             for s in ctx.files.srcs]
 
-    # Collect the transitive TypeScript info from deps.
     deps_js = [dep[TypeScriptInfo].js
                 for dep in ctx.attr.deps]
     deps_dts = [dep[TypeScriptInfo].dts
@@ -38,7 +37,6 @@ def _ts_library_impl(ctx):
     cfg = ctx.actions.declare_file(ctx.label.name + "_tsconfig.json")
 
     to_root = len(cfg.dirname.split("/")) * "../"
-    # Cannot pass rootDirs on the command line, so create a tsconfig.json.
     ctx.actions.write(
         cfg,
         content="""{{
